@@ -4,9 +4,7 @@ import json
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
 
 load_dotenv()
 
@@ -15,11 +13,9 @@ options = webdriver.ChromeOptions()
 options.add_argument(
     r"--user-data-dir=C:\Users\{}\AppData\Local\Google\Chrome\User Data".format("Alexis"))
 options.add_argument("--profile-directory=Default")
+options.add_argument("--headless")
 driver = webdriver.Chrome(service=service, options=options)
-driver.maximize_window()
 driver.get("https://my.epitech.eu/")
-
-# Todo: Login
 
 t.sleep(2)
 
@@ -31,12 +27,11 @@ lastAutograde = driver.find_element(
 [hour, minute] = time.split(":")
 
 # Write to file
-with open("autograder.json", "r") as file:
+with open("./bot/autograder.json", "r") as file:
     data = json.load(file)
 
 data = {
     "course": course,
-    "created_at": createdAt,
     "date": {
         "day": day,
         "month": month,
@@ -48,5 +43,7 @@ data = {
     }
 }
 
-with open("autograder.json", "w") as file:
+with open("./bot/autograder.json", "w") as file:
     json.dump(data, file, indent=4)
+
+driver.quit()
