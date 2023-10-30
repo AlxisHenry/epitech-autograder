@@ -10,12 +10,11 @@ load_dotenv()
 
 service = Service(os.getenv('CHROMEDRIVER_PATH'))
 options = webdriver.ChromeOptions()
-options.add_argument(
-    r"--user-data-dir=C:\Users\{}\AppData\Local\Google\Chrome\User Data".format("Alexis"))
+options.add_argument(os.getenv("CHROME_PROFILE_PATH"))
 options.add_argument("--profile-directory=Default")
 options.add_argument("--headless")
 driver = webdriver.Chrome(service=service, options=options)
-driver.get("https://my.epitech.eu/")
+driver.get(os.getenv('WEBSITE_URL'))
 
 t.sleep(2)
 

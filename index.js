@@ -8,7 +8,7 @@ const gifs = [
 	"https://tenor.com/view/spin-slap-windmill-gif-12199610",
 	"https://tenor.com/view/christine-rock-climbing-top-rope-cool-wink-gif-13849776"
 ];
-const DELAY = 45 * 60 * 1000; // 45 minutes
+const DELAY = 5 * 60 * 1000; // every 5 minutes
 
 const { token } = config;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -28,8 +28,7 @@ client.once(Events.ClientReady, async c => {
 
 	setInterval(async () => {
 		await loadAutograderData(true)
-	// }, DELAY / 2);
-	}, 20000);
+	}, DELAY);
 	
 	setInterval(async () => {
 		let { course, date, time } = await loadAutograderData();
@@ -43,14 +42,21 @@ client.once(Events.ClientReady, async c => {
 			})
 			current = fdate;
 		}
-	}, 40000);
+	}, DELAY * 2);
 });
 
 async function loadAutograderData(run = false) {
 	try {
 		if (run) {
 			console.log('Running autograder python script.');
-			exec('python3 ./bot/main.py');
+			exec('python3 ./bot/main.py', (error, stdout, stderr) => {
+				if (error) {
+					console.error(`exec error: ${error}`);
+					return;
+				}
+				console.log(`stdout: ${stdout}`);
+				console.error(`stderr: ${stderr}`);
+			});
 		}
 		let data = await fs.readFile('./bot/autograder.json', 'utf8');
 		return JSON.parse(data);
