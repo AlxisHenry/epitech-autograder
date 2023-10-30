@@ -1,6 +1,8 @@
-# Epitech auto-grader
+# Epitech autograder 🐡
 
-This is a web application to have a global view and some statistics about my studies at Epitech.
+This is a discord bot that sends a message to a channel when a new auto-grading is available on the intranet. 
+
+> The bot knows when a new auto-grading is available by checking the grades page every 5 minutes using a python script.
 
 ## Table of contents
 1. [How to use it ?](#how-to-use-it-)
@@ -22,28 +24,39 @@ $ cd epitech-autograder
 $ npm install
 ```
 
-### Configure the bot
+### Configure the discord bot
 
 ```bash
-$ cd bot
-$ cp .env.example .env
+cp config.sample.json config.json
+```
+
+Put your discord bot token in the `config.json` file.
+
+```bash
+$ cat config.json
+{
+	"token": "<your token here>"
+}
+```
+
+### Configure the python script
+
+```bash
+cd bot
+cp .env.example .env
+cp autograder.sample.json autograder.json
+```
+
+#### Update the `.env` file with your own values
+
+```bash
 $ cat .env
-MICROSOFT_EMAIL="example@gmail.com"
-MICROSOFT_PASSWORD="password"
 CHROMEDRIVER_PATH="./drivers/chromedriver.exe"
-WEBSITE_URL="https://www.microsoft.com/en-us/software-download/windows10ISO"
+CHROME_PROFILE_PATH="path/to/chrome/profile"
+WEBSITE_URL="https://www.google.com"
 ```
 
-- Replace the `MICROSOFT_EMAIL` and `MICROSOFT_PASSWORD` environments variables with your microsoft credentials.
-- Replace `WEBSITE_URL` with the link to gandalf login page.
-
-#### Reset the `grades.json` file using the sample.
-
-```
-$ cp grades.sample.json grades.json
-```
-
-#### Optionally you can use a python virtual environment to run the bot.
+#### Optionally you can use a python virtual environment to run the bot
 
 ```bash
 $ python3 -m venv venv
@@ -56,19 +69,13 @@ $ venv/Scripts/activate
 $ pip install -r requirements.txt
 ```
 
-#### Now you just need to run the `main.py` ! 🐡
+### Everything is done :tada:
 
-```bash
-$ py main.py
-```
-
-During the script, you will be asked for an OTP code, which you should normally receive by phone. Your Microsoft account must be linked to your telephone number if you turn on 2FA. So you just need to enter the code in your terminal when asked.
-
-#### Launch the web application
+You can now run the bot.
 
 ```bash
 $ cd ..
-$ pnpm run dev
+$ node index.js
 ```
 
 ## Technologies
