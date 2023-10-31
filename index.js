@@ -8,7 +8,7 @@ const gifs = [
 	"https://tenor.com/view/spin-slap-windmill-gif-12199610",
 	"https://tenor.com/view/christine-rock-climbing-top-rope-cool-wink-gif-13849776"
 ];
-const DELAY = 5 * 60 * 1000; // every 5 minutes
+const DELAY = 3 * 60 * 1000; // every 3 minutes
 
 const { token } = config;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
