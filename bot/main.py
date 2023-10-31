@@ -13,17 +13,17 @@ if "--r" in os.sys.argv:
 
 load_dotenv()
 
-chrome_driver_path = os.getenv('CHROMEDRIVER_PATH')
+driver_path = os.getenv('DRIVER_PATH')
 
 if not root:
-    chrome_driver_path = "./bot/" + chrome_driver_path[2:]
+    driver_path = "./bot/" + driver_path[2:]
 
-service = Service(chrome_driver_path)
-options = webdriver.ChromeOptions()
-options.add_argument("--user-data-dir=" + os.getenv('CHROME_PROFILE_PATH'))
+service = Service(driver_path)
+options = webdriver.EdgeOptions()
+options.add_argument("--user-data-dir=" + os.getenv('PROFILE_PATH'))
 options.add_argument("--profile-directory=Default")
 options.add_argument("--headless")
-driver = webdriver.Chrome(service=service, options=options)
+driver = webdriver.Edge(service=service, options=options)
 driver.get(os.getenv('WEBSITE_URL'))
 
 t.sleep(2)
