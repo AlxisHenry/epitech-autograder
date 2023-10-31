@@ -10,7 +10,7 @@ load_dotenv()
 
 service = Service(os.getenv('CHROMEDRIVER_PATH'))
 options = webdriver.ChromeOptions()
-options.add_argument(os.getenv("CHROME_PROFILE_PATH"))
+options.add_argument("--user-data-dir=" + os.getenv('CHROME_PROFILE_PATH'))
 options.add_argument("--profile-directory=Default")
 options.add_argument("--headless")
 driver = webdriver.Chrome(service=service, options=options)
@@ -25,10 +25,6 @@ lastAutograde = driver.find_element(
 [day, month, year] = date.split("/")
 [hour, minute] = time.split(":")
 
-# Write to file
-with open("./bot/autograder.json", "r") as file:
-    data = json.load(file)
-
 data = {
     "course": course,
     "date": {
@@ -42,7 +38,9 @@ data = {
     }
 }
 
-with open("./bot/autograder.json", "w") as file:
+print(data)
+
+with open("./autograder.json", "w") as file:
     json.dump(data, file, indent=4)
 
 driver.quit()
