@@ -51,8 +51,9 @@ cp autograder.sample.json autograder.json
 
 ```bash
 $ cat .env
-CHROMEDRIVER_PATH="./drivers/chromedriver.exe"
-CHROME_PROFILE_PATH="path/to/chrome/profile"
+BROWSER="edge"
+DRIVER_PATH="./drivers/msedgedriver.exe"
+PROFILE_PATH="C:\\Users\\user\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default"
 WEBSITE_URL="https://www.google.com"
 ```
 
