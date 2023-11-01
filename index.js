@@ -28,7 +28,7 @@ client.once(Events.ClientReady, async c => {
 
 	setInterval(async () => {
 		await loadAutograderData(true)
-	}, DELAY);
+	}, DELAY / 2);
 	
 	setInterval(async () => {
 		let { course, date, time } = await loadAutograderData();
@@ -42,7 +42,7 @@ client.once(Events.ClientReady, async c => {
 			})
 			current = fdate;
 		}
-	}, DELAY * 2);
+	}, DELAY);
 });
 
 async function loadAutograderData(run = false) {
