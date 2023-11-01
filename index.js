@@ -9,7 +9,7 @@ const gifs = [
 	"https://tenor.com/view/christine-rock-climbing-top-rope-cool-wink-gif-13849776"
 ];
 const botChannel = '1168562165482012692';
-const DELAY = 3 * 60 * 1000; // every 3 minutes
+const DELAY = 2 * 60 * 1000; // every 2 minutes
 
 const { token } = config;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -42,7 +42,7 @@ client.once(Events.ClientReady, async c => {
 		if (current.getTime() !== fdate.getTime()) {
 			console.log('Sending message to channel');
 			client.channels.fetch(botChannel).then(channel => {
-				channel.send(`@everyone **${course}** is now being graded !\n`);
+				channel.send(`@everyone **${course}** is now being graded !`);
 				channel.send(gifs[Math.floor(Math.random() * gifs.length)]);
 			})
 			current = fdate;
