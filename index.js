@@ -8,6 +8,7 @@ const gifs = [
 	"https://tenor.com/view/spin-slap-windmill-gif-12199610",
 	"https://tenor.com/view/christine-rock-climbing-top-rope-cool-wink-gif-13849776"
 ];
+const botChannel = '1168562165482012692';
 const DELAY = 3 * 60 * 1000; // every 3 minutes
 
 const { token } = config;
@@ -26,7 +27,11 @@ client.once(Events.ClientReady, async c => {
 	client.user.setActivity(`Grading ${course}`);
 	let current = formatDate(date, time);
 
+	console.log('Starting autograder loop. Checking every', DELAY / 1000, 'seconds.');
+	console.log(`Retrieved data: ${course} ${date?.year}-${date?.month}-${date?.day}T${time?.hour}:${time?.minute}:00`)
+
 	setInterval(async () => {
+		console.log('Running autograder python script.');
 		await loadAutograderData(true)
 	}, DELAY / 2);
 	
@@ -36,19 +41,32 @@ client.once(Events.ClientReady, async c => {
 		let fdate = formatDate(date, time);
 		if (current.getTime() !== fdate.getTime()) {
 			console.log('Sending message to channel');
-			client.channels.fetch('1168562165482012692').then(channel => {
+			client.channels.fetch(botChannel).then(channel => {
 				channel.send(`@everyone **${course}** is now being graded !\n`);
 				channel.send(gifs[Math.floor(Math.random() * gifs.length)]);
 			})
 			current = fdate;
 		}
 	}, DELAY);
+
+	setInterval(async () => {
+		// if time is between 00:00 and 00:30
+		if (Date.now() % 86400000 >= 0 && Date.now() % 86400000 <= 1800000)
+			client.channels.fetch(botChannel).then(channel => {
+				channel.messages.fetch({ limit: 100 }).then(messages => {
+					messages.forEach(msg => {
+						if (msg.author.id === client.user.id) {
+							msg.delete();
+						}
+					})
+				})
+			})
+	}, 1800000);
 });
 
 async function loadAutograderData(run = false) {
 	try {
 		if (run) {
-			console.log('Running autograder python script.');
 			exec('python3 ./bot/main.py', (error, stdout, stderr) => {
 				if (error) {
 					console.error(`exec error: ${error}`);
