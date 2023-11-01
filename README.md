@@ -2,7 +2,7 @@
 
 This is a discord bot that sends a message to a channel when a new auto-grading is available on the intranet. 
 
-> The bot knows when a new auto-grading is available by checking the grades page every 5 minutes using a python script.
+> The bot knows when a new auto-grading is available by checking the grades page every 2 minutes using a python script.
 
 ## Table of contents
 1. [How to use it ?](#how-to-use-it-)
@@ -14,8 +14,8 @@ This is a discord bot that sends a message to a channel when a new auto-grading 
 First, you need to clone the repository.
 
 ```bash
-$ git clone https://github.com/AlxisHenry/epitech-autograder.git
-$ cd epitech-autograder
+$ git clone https://github.com/AlxisHenry/epitech-autograder-notifications.git
+$ cd epitech-autograder-notifications
 ```
 
 ### Install javascript dependencies
@@ -32,8 +32,7 @@ cp config.sample.json config.json
 
 Put your discord bot token in the `config.json` file.
 
-```bash
-$ cat config.json
+```json
 {
 	"token": "<your token here>"
 }
