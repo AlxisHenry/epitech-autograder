@@ -1,4 +1,4 @@
-# Epitech autograder 🐡
+# Epitech autograder notifications 🐡
 
 This is a discord bot that sends a message to a channel when a new auto-grading is available on the intranet. 
 
