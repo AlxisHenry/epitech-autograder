@@ -9,7 +9,7 @@ const gifs = [
 	"https://tenor.com/view/christine-rock-climbing-top-rope-cool-wink-gif-13849776"
 ];
 const botChannel = '1168562165482012692';
-const DELAY = 2 * 60 * 1000; // every 2 minutes
+const DELAY = 1 * 60 * 1000; // every minute
 
 const { token } = config;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -48,20 +48,6 @@ client.once(Events.ClientReady, async c => {
 			current = fdate;
 		}
 	}, DELAY);
-
-	setInterval(async () => {
-		// if time is between 00:00 and 00:30
-		if (Date.now() % 86400000 >= 0 && Date.now() % 86400000 <= 1800000)
-			client.channels.fetch(botChannel).then(channel => {
-				channel.messages.fetch({ limit: 100 }).then(messages => {
-					messages.forEach(msg => {
-						if (msg.author.id === client.user.id) {
-							msg.delete();
-						}
-					})
-				})
-			})
-	}, 1800000);
 });
 
 async function loadAutograderData(run = false) {
